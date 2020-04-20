@@ -33,6 +33,14 @@ def Setup():
     btested = bool(btestedFile.read().replace("\n","").strip())
     btestedFile.close()
 
+    #비어있는 파일이 있는지 확인
+    if id == "" or password == "" or url == "" or studentId == "" or name == "":
+        print("비어있는 파일이 있네요 설정을 확인해보세요 파일이 비어있으면 더 이상의 실행이 불가능합니다")
+        WriteLog("Setup fail {} | {}\n".format("empty file",GetCurrentAllTime()))
+        input("종료하시려면 아무키나 입력하세요  ")
+        print("\n\n종료되었습니다")
+        sys.exit()
+
     
     
 
@@ -66,7 +74,19 @@ def DoAttendanceCheck():
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[1]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(studentId)  
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[2]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(name)
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[3]/div/div[2]/div/div/label/div/div[1]/div[2]').click()
-    driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
+
+
+    #행복번호 맞추기
+    for i in range(1,100000):
+        beforeReply = driver.current_url
+        driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(i)
+        driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
+
+        if driver.current_url != beforeReply:
+            break
+
+        driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').clear()
+
 
     driver.switch_to.window(driver.window_handles[0])
 
@@ -81,6 +101,28 @@ def WriteLog(message):
     logFile = open(os.getcwd() + "\\programfiles\\log.txt","a",encoding="utf-8")
     logFile.write(message)
     logFile.close()
+
+#로그를 체크해서 오늘 출석체크했는지 확인
+def CheckLog():
+    logFile = open(os.getcwd() + "\\programfiles\\log.txt",encoding="utf-8")
+    logs = logFile.readlines()
+    logFile.close()
+
+    return "AttendanceCheck success | {}\n".format(GetCurrentAllTime()) in logs or "re AttendanceCheck success | {}\n".format(GetCurrentAllTime()) in logs
+
+
+#주말인지 확인
+def CheckDayOfTheWeek():
+    weekend = ["Sunday","Saturday"]
+
+    return (time.strftime('%A', time.localtime(time.time())) not in weekend)
+
+
+#현재 날짜 형식에 맞춰 반환
+def GetCurrentAllTime():
+    return time.strftime('%Y-%m-%d', time.localtime(time.time()))
+
+
 
 
 
@@ -105,7 +147,7 @@ else:
         driver = webdriver.Chrome(os.getcwd() + "\\programfiles\\chromedriver")
     except Exception as e:
         print("크롬81버젼이 맞나요? 버젼을 확인해주세요")
-        WriteLog("Test fail {},{}\n".format("chromedriver version error",time.strftime('%c', time.localtime(time.time()))))
+        WriteLog("Test fail {} | {}\n".format("chromedriver version error",GetCurrentAllTime()))
         input("종료하시려면 아무키나 입력하세요  ")
         print("\n\n종료되었습니다")
         sys.exit()
@@ -125,7 +167,7 @@ else:
         driver.find_element_by_name("password").send_keys(password)
     except Exception as e:
         print("id가 잘못된 것 같군요 설정을 확인해 보세요")
-        WriteLog("Test fail {},{}\n".format("not correct id",time.strftime('%c', time.localtime(time.time()))))
+        WriteLog("Test fail {} | {}\n".format("not correct id",GetCurrentAllTime()))
         input("종료하시려면 아무키나 입력하세요  ")
         print("\n\n종료되었습니다")
         driver.quit()
@@ -138,7 +180,7 @@ else:
     #로그인에 성공했는지 확인
     if not driver.current_url == "https://www.google.com/":
         print("password가 잘못된 것 같군요 설정을 확인해 보세요")
-        WriteLog("Test fail {},{}\n".format("not correct password",time.strftime('%c', time.localtime(time.time()))))
+        WriteLog("Test fail {} | {}\n".format("not correct password",GetCurrentAllTime()))
         input("종료하시려면 아무키나 입력하세요  ")
         print("\n\n종료되었습니다")
         driver.quit()
@@ -146,11 +188,12 @@ else:
 
     driver.get(url)
 
+    time.sleep(3)
+
     #url이 구글 클래스룸으로 시작하는지 확인(엄밀히 말해서 완벽한 확인은 아님)
     if not driver.current_url.startswith("https://classroom.google.com/"):
-        print(driver.current_url)
         print("url이 잘못된 것 같군요 설정을 확인해 보세요")
-        WriteLog("Test fail {},{}\n".format("not correct url",time.strftime('%c', time.localtime(time.time()))))
+        WriteLog("Test fail not correct url | {}\n".format(GetCurrentAllTime()))
         input("종료하시려면 아무키나 입력하세요  ")
         print("\n\n종료되었습니다")
         driver.quit()
@@ -163,48 +206,39 @@ else:
     driver.quit()
 
     print("테스트가 성공적으로 종료되었습니다 :)\n\n")
-    WriteLog("Test success {}\n".format(time.strftime('%c', time.localtime(time.time()))))
+    WriteLog("Test success | {}\n".format(GetCurrentAllTime()))
 
+print("매일 아침 9시마다 출석체크를 진행합니다(9~11시 사이에만 진행됨, 주말엔 진행안됨, 오늘한번했으면 당연히 진행안됨)")
 
-
-print("매일 아침 9시마다 출석체크를 진행합니다")
-
-#매일 아침 9시마다 출석체크
+#프로그램 메인로직
 while True:
-    currentHour=time.strftime('%H', time.localtime(time.time()))
-    currentAllTime = time.strftime('%c', time.localtime(time.time()))
-
-    if currentHour == "09":
-        print("9시네요! 출석체크를 진행합니다!")
+    currentHour=int(time.strftime('%H', time.localtime(time.time())))
+    
+    #9~11시까지 주중에 출석체크가 안되있으면 출석체크 진행
+    if currentHour >=9 and currentHour <=11 and not CheckLog() and CheckDayOfTheWeek():
+        print("{}시네요! 출석체크를 진행합니다!".format(currentHour))
         try:
             DoAttendanceCheck()
-            print("출석체크를 완료했습니다 {}".format(currentAllTime))
-            WriteLog("AttendanceCheck success {}\n".format(currentAllTime))
+            print("출석체크를 완료했습니다 {}".format(GetCurrentAllTime()))
+            WriteLog("AttendanceCheck success | {}\n".format(GetCurrentAllTime()))
 
             time.sleep(86400)
 
         except Exception as e:
             print(e)
             print("에러가 발생했습니다 해당 메시지 발견시 즉시 개발자에게 문의주세요 일단 출석체크를 다시한번 시도하겠습니다")
-            WriteLog("AttendanceCheck fail {}, {}\n".format(e,currentAllTime))
+            WriteLog("AttendanceCheck fail {} | {}\n".format(e,GetCurrentAllTime()))
             
             #실패시 한번더 시도
             try:
                 DoAttendanceCheck()
-                print("다시한번 시도한 결과 성공했습니다 다만 첫번째 오류메시지를 반드시 제보해주세요 {}".format(currentAllTime))
-                WriteLog("re AttendanceCheck success {}\n".format(currentAllTime))
+                print("다시한번 시도한 결과 성공했습니다 다만 첫번째 오류메시지를 반드시 제보해주세요 {}".format(GetCurrentAllTime()))
+                WriteLog("re AttendanceCheck success | {}\n".format(GetCurrentAllTime()))
                 time.sleep(86400)
 
             except Exception as e:
                 print(e)
                 print("다시한번 시도했지만 실패하였습니다 개발자에게 반드시 문의넣어주세요")
-                WriteLog("re AttendanceCheck fail {}, {}\n".format(e,currentAllTime))
+                WriteLog("re AttendanceCheck fail {} | {}\n".format(e,GetCurrentAllTime()))
                 time.sleep(86400)
-
-
-
-
-
-
-
-
+            
