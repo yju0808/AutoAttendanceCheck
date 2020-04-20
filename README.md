@@ -4,7 +4,9 @@ AutoAttendanceCheck
 영월고등학교용 자동출석체크
 ---
 
-main.py는 소스코드입니다 프로그램을 사용하시면 AutoAttendanceCheck.zip 파일을 다운받으시면 됩니다
+main.py는 소스코드입니다   
+프로그램 사용하시려면 AutoAttendanceCheck.zip 파일 다운받고 안에 들어있는 자동출석체크.exe(파란색 아이콘) 파일만 제거하고   
+B2버젼 exe파일 다운해서 넣어준다음 사용하시면 됩니다
 
 
 릴리즈 노트   
