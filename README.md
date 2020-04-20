@@ -23,4 +23,4 @@ main.py는 소스코드입니다
 
 
 실행영상   
-<iframe width="640" height="360" src="https://youtu.be/EAf_zht344o" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![AutoAttendanceCheck 실행영상](https://i.ytimg.com/vi/EAf_zht344o/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA2kH63UYPxGHVojOdWeb-spv4Q0Q)](https://youtu.be/EAf_zht344o)
