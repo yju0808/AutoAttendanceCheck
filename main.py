@@ -77,7 +77,7 @@ def DoAttendanceCheck():
 
 
     #행복번호 맞추기
-    for i in range(1,100000):
+    for i in range(0,10001):
         beforeReply = driver.current_url
         driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(i)
         driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
@@ -130,7 +130,8 @@ def GetCurrentAllTime():
 
 
 print("자동출석체크 - Developed by YJU")
-print("개발자 연락처 : yju0808@naver.com - 버그, 오류 등등 발견시 제보해주세요\n\n")
+print("개발자 연락처 : yju0808@naver.com - 버그, 오류 등등 발견시 제보해주세요")
+print("버젼 : B4 - 베타테스터 버젼\n\n")
 
 
 
