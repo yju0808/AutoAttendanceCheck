@@ -8,7 +8,7 @@ main.py는 소스코드입니다
 사용하시려면 AutoAttendanceCheck.zip 다운받고 압축푸시고 설명서보고 셋팅진행하시면 됩니다
 
 
-릴리즈 노트   
+릴리즈 노트     
 
 2020-04-18 자동출석체크 B0 - 베타테스터 버젼 : 첫번째 공식 베타테스터 버젼
 
@@ -24,3 +24,4 @@ main.py는 소스코드입니다
 
 실행영상(모의 테스트환경에서 녹화한 영상입니다)   
 [![AutoAttendanceCheck 실행영상](https://i.ytimg.com/vi/EAf_zht344o/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA2kH63UYPxGHVojOdWeb-spv4Q0Q)](https://youtu.be/EAf_zht344o)
+
