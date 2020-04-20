@@ -22,5 +22,5 @@ main.py는 소스코드입니다
     B2의 행복번호 대입 시스템 버그 해결
 
 
-실행영상   
+실행영상(모의 테스트환경에서 녹화한 영상입니다)
 [![AutoAttendanceCheck 실행영상](https://i.ytimg.com/vi/EAf_zht344o/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA2kH63UYPxGHVojOdWeb-spv4Q0Q)](https://youtu.be/EAf_zht344o)
