@@ -18,6 +18,9 @@ main.py는 소스코드입니다
 2020-04-20 자동출석체크 B2 - 베타테스터 버젼 : 세번째 공식 베타테스터 버젼   
     B1의 행복번호 대입 시스템 버그 해결
 
-2020-04-20 자동출석체크 B3 - 베타테스터 버젼 : 세번째 공식 베타테스터 버젼   
+2020-04-20 자동출석체크 B3 - 베타테스터 버젼 : 네번째 공식 베타테스터 버젼   
     B2의 행복번호 대입 시스템 버그 해결
 
+
+실행영상   
+<iframe width="640" height="360" src="https://youtu.be/EAf_zht344o" frameborder="0" gesture="media" allowfullscreen=""></iframe>
