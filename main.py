@@ -82,8 +82,12 @@ def DoAttendanceCheck():
         driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(i)
         driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
 
+        time.sleep(0.1)
+        
         if driver.current_url != beforeReply:
             break
+        
+        
 
         driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').clear()
 
