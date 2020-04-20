@@ -5,8 +5,10 @@ AutoAttendanceCheck
 ---
 
 main.py는 소스코드입니다   
-프로그램 사용하시려면 AutoAttendanceCheck.zip 파일 다운받고 안에 들어있는 자동출석체크.exe(파란색 아이콘) 파일만 제거하고   
-B2버젼 exe파일 다운해서 넣어준다음 사용하시면 됩니다
+사용하시려면 B1버젼 AutoAttendanceCheck.zip 다운받고 안에 들어있는 자동출석체크.exe(파란색 아이콘) 파일만 제거하고   
+B2버젼 exe파일 다운해서 넣어준다음 사용하시면 됩니다  
+    
+B0버젼 사용하시는 분들도 B2버젼 exe파일만 다운해서 교체해주시면 됩니다
 
 
 릴리즈 노트   
