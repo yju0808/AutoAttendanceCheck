@@ -131,7 +131,7 @@ def GetCurrentAllTime():
 
 print("자동출석체크 - Developed by YJU")
 print("개발자 연락처 : yju0808@naver.com - 버그, 오류 등등 발견시 제보해주세요")
-print("버젼 : B4 - 베타테스터 버젼\n\n")
+print("버젼 : U0 - 사용자 버젼\n\n")
 
 
 
