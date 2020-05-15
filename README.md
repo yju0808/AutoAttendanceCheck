@@ -33,6 +33,9 @@ main.py는 소스코드입니다
 2020-05-15 자동출석체크 U2 - 사용자 버젼 : 세번째 공식 사용자 버젼      
     매크로 의심방지를 위해 9시~10시 사이 랜덤한 시간에 출석체크 진행   
 
+2020-05-15 자동출석체크 U3 - 사용자 버젼 : 네번째 공식 사용자 버젼      
+     출석체크시간 8:30~9:30으로 변경
+
 실행영상(모의 테스트환경에서 녹화한 영상입니다)   
 [![AutoAttendanceCheck 실행영상](https://i.ytimg.com/vi/EAf_zht344o/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA2kH63UYPxGHVojOdWeb-spv4Q0Q)](https://youtu.be/EAf_zht344o)
 
