@@ -4,6 +4,7 @@ import time
 import os
 import sys
 from selenium import webdriver
+import random
 
 #파일로드 함수
 def Setup():
@@ -136,7 +137,7 @@ def GetCurrentAllTime():
 
 print("자동출석체크 - Developed by YJU")
 print("개발자 연락처 : yju0808@naver.com - 버그, 오류 등등 발견시 제보해주세요")
-print("버젼 : U1 - 사용자 버젼\n\n")
+print("버젼 : U2 - 사용자 버젼\n\n")
 
 
 
@@ -224,13 +225,17 @@ while True:
     
     #9~11시까지 주중에 출석체크가 안되있으면 출석체크 진행
     if currentHour >=9 and currentHour <=11 and not CheckLog() and CheckDayOfTheWeek():
-        print("{}시네요! 출석체크를 진행합니다!".format(currentHour))
+
+        #랜덤시간에 출췍하기(매크로 의심방지용)
+        ranMinute = random.choice(range(0,65))
+        print("{}시군요! 출석체크를 시도할건데 매크로 의심방지를 위해 {}분 후에 출석체크를 진행할게요".format(currentHour,ranMinute))
+        time.sleep(ranMinute * 60)
+        print("출석체크를 시도합니다!")
+
         try:
             DoAttendanceCheck()
             print("출석체크를 완료했습니다 {}".format(GetCurrentAllTime()))
             WriteLog("AttendanceCheck success | {}\n".format(GetCurrentAllTime()))
-
-            time.sleep(86400)
 
         except Exception as e:
             print(e)
@@ -242,11 +247,9 @@ while True:
                 DoAttendanceCheck()
                 print("다시한번 시도한 결과 성공했습니다 다만 첫번째 오류메시지를 반드시 제보해주세요 {}".format(GetCurrentAllTime()))
                 WriteLog("re AttendanceCheck success | {}\n".format(GetCurrentAllTime()))
-                time.sleep(86400)
 
             except Exception as e:
                 print(e)
                 print("다시한번 시도했지만 실패하였습니다 개발자에게 반드시 문의넣어주세요")
                 WriteLog("re AttendanceCheck fail {} | {}\n".format(e,GetCurrentAllTime()))
-                time.sleep(86400)
             
