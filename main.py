@@ -137,7 +137,7 @@ def GetCurrentAllTime():
 
 print("자동출석체크 - Developed by YJU")
 print("개발자 연락처 : yju0808@naver.com - 버그, 오류 등등 발견시 제보해주세요")
-print("버젼 : U2 - 사용자 버젼\n\n")
+print("버젼 : U3 - 사용자 버젼\n\n")
 
 
 
@@ -217,18 +217,21 @@ else:
     print("테스트가 성공적으로 종료되었습니다 :)\n\n")
     WriteLog("Test success | {}\n".format(GetCurrentAllTime()))
 
-print("매일 아침 9시마다 출석체크를 진행합니다(9~11시 사이에만 진행됨, 주말엔 진행안됨, 오늘한번했으면 당연히 진행안됨)")
+print("매일 아침 8시 30분 마다 출석체크를 진행합니다(8:30~9:30 사이에 랜덤으로 진행됨, 주말엔 진행안됨, 오늘한번했으면 당연히 진행안됨)")
 
 #프로그램 메인로직
 while True:
     currentHour=int(time.strftime('%H', time.localtime(time.time())))
     
-    #9~11시까지 주중에 출석체크가 안되있으면 출석체크 진행
-    if currentHour >=9 and currentHour <=11 and not CheckLog() and CheckDayOfTheWeek():
+    #8시에 주중에 출석체크가 안되있으면 출석체크 진행
+    if currentHour == 8 and not CheckLog() and CheckDayOfTheWeek():
+
+        #8시 30분까지 기다리기
+        time.sleep(30 * 60)
 
         #랜덤시간에 출췍하기(매크로 의심방지용)
         ranMinute = random.choice(range(0,65))
-        print("{}시군요! 출석체크를 시도할건데 매크로 의심방지를 위해 {}분 후에 출석체크를 진행할게요".format(currentHour,ranMinute))
+        print("출석체크를 시도할건데 매크로 의심방지를 위해 {}분 후에 출석체크를 진행할게요".format(ranMinute))
         time.sleep(ranMinute * 60)
         print("출석체크를 시도합니다!")
 
@@ -252,4 +255,4 @@ while True:
                 print(e)
                 print("다시한번 시도했지만 실패하였습니다 개발자에게 반드시 문의넣어주세요")
                 WriteLog("re AttendanceCheck fail {} | {}\n".format(e,GetCurrentAllTime()))
-            
+                time.sleep(18000)
