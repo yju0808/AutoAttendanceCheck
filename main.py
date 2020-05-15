@@ -68,35 +68,40 @@ def DoAttendanceCheck():
     driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div/div').click()
     driver.implicitly_wait(10)
 
-    #미완성
+    #여기서부터 구글설문지 작성
     driver.switch_to.window(driver.window_handles[1])
 
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[1]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(studentId)  
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[2]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(name)
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[3]/div/div[2]/div/div/label/div/div[1]/div[2]').click()
 
+    #행운번호가 없을수도있으니 일단 제출눌러보기
+    beforeReply = driver.current_url
+    driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
+                                   
+    #행운번호 입력란이 있는지 확인
+    if driver.current_url == beforeReply:
 
-    #행복번호 맞추기
-    for i in range(0,10001):
-        beforeReply = driver.current_url
-        driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(i)
-        driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
+        #행복번호 맞추기
+        for i in range(0,10001):
+            beforeReply = driver.current_url
+            driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').send_keys(i)
+            driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[3]/div[1]/div/div/span').click()
 
-        time.sleep(0.5)
+            time.sleep(0.5)
 
-        if driver.current_url != beforeReply:
-            break
+            if driver.current_url != beforeReply:
+                break
 
-        driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').clear()
+            driver.find_element_by_xpath('//*[@id="mG61Hd"]/div/div/div[2]/div[4]/div/div[2]/div/div[1]/div/div[1]/input').clear()
 
-
+    #과제제출하기
     driver.switch_to.window(driver.window_handles[0])
 
     driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[4]/div[2]/div/div[2]/aside/div[1]/div[2]/div[1]/div[1]/div[2]/textarea').send_keys("출석체크")
     driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[4]/div[2]/div/div[2]/aside/div[1]/div[2]/div[3]/div[2]/span').click()
     driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[12]/div/div[2]/div[3]/div[2]/span/span').click()
-    #미완성
-    
+
 
 #로그작성 함수
 def WriteLog(message):
@@ -131,7 +136,7 @@ def GetCurrentAllTime():
 
 print("자동출석체크 - Developed by YJU")
 print("개발자 연락처 : yju0808@naver.com - 버그, 오류 등등 발견시 제보해주세요")
-print("버젼 : U0 - 사용자 버젼\n\n")
+print("버젼 : U1 - 사용자 버젼\n\n")
 
 
 
